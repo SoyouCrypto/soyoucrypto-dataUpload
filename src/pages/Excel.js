@@ -10,6 +10,8 @@ const Excel = () => {
     const dispatch = useDispatch();
     const momentumIndex = useSelector((state) => state.uploadData.momentumIndex.uploadTime);
     const stableIndex = useSelector((state) => state.uploadData.stableIndex.uploadTime);
+    console.log("??", momentumIndex)
+    console.log("무엇:?")
 
     // 모멘텀파일 업로드 함수
       async function handleMomentumSubmit(event) {
@@ -17,7 +19,6 @@ const Excel = () => {
         
         const formData = new FormData();
         let file = files
-        console.log("갓 생성 폼데이터", formData)
         formData.append("file", file);
         /* key 확인하기 */
         for (let key of formData.keys()) {
@@ -30,7 +31,6 @@ const Excel = () => {
         }
         console.log("files?", files)
         
-        // 이후 삭제까지 한번에 이루어지도록 리팩토링 시도해보기..
         await Promise.all([
         dispatch(momentumAction.uploadMomentumAll(formData)),
         dispatch(momentumAction.uploadMomentum1Y(formData)),
@@ -107,7 +107,7 @@ const Excel = () => {
 
     useEffect(() => {
       dispatch(momentumAction.getUploadData());
-    }, [momentumIndex, stableIndex]);
+    }, []);
       
   return (
     
